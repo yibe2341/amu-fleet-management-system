@@ -1,0 +1,156 @@
+<?php
+session_start();
+
+// Check if the user is logged in
+if (!isset($_SESSION['username'])) {
+    // Redirect to the login page if the user is not logged in
+    header("Location: index.html");
+    exit();
+}
+
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+      <meta http-equiv="Pragma" content="no-cache">
+      <meta http-equiv="Expires" content="0">
+  
+      <!-- Add client-side session check -->
+      <script>
+          // Check session status on page load
+          fetch('check_login.php') // Create this file (see below)
+              .then(response => response.text())
+              .then(data => {
+                  if (data === 'false') {
+                      window.location.href = 'index.html';
+                  }
+              });
+      </script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>AMU</title>
+<meta name="keywords" content="free css website layout, insect, blog template, XHTML, CSS" />
+<meta name="description" content="Insect Blog Template - Free CSS website layout, W3C compliant XHTML CSS" />
+<link href="templatemo_style.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+<div id="templatemo_top_panel">
+    <img src="wou arm.jpg.png" alt="AMU Logo" style="width: 180px; height: 120px; float: right;" />
+    <img src="wou arm.jpg.png" alt="AMU Logo" style="width: 180px; height: 120px; float: left;" />
+    
+    <div id="templatemo_top_section">
+        <div id="site_title">
+       AMU FLEET MANAGEMENT SYSTEM
+        <div id="templatemo_menu">
+		<div id="templatemo_menu">
+
+                           <ul>
+                                <li><a href="Admin.php"  class="current">Home</a></li>
+                                <li><a href="#">Account</a>
+								<ul>
+								<li><a href="createaccount.php">Create account</a></li>
+								<li><a href="view.php">Update account</a></li>
+								<li><a href="view2.php">Delete account</a></li>
+								</ul>
+								</li>
+				                
+				                <li><a href="aviewschedule.php">View Schedule</a></li>
+								<li><a href="upload1.php"  class="current">Report</a></li>
+								<li><a href="changepssadmin.php">Changepassword</a></li>
+				 			    <li><a href="logout.php"  class="current">Logout</a></li>
+                                
+                            </ul>  		
+				</div> 
+		</div> <!-- end of menu -->
+    </div> <!-- end of top section -->
+</div> <!-- end of top panel -->    
+
+
+           <center>
+
+
+
+<form>
+<div class="id" style="background-color:#FFFFCC; color:black;border-radius:25px; width:98%; margin-top:100px">
+
+<?php
+/*
+    VIEW.PHP
+    Displays all data from 'schedule' table
+*/
+
+// Include the database configuration file
+include('config.php');
+
+// Create a connection to the database
+
+// Check if the connection was successful
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Get results from the database
+$query = "SELECT * FROM schedule";
+$result = $conn->query($query);
+
+if (!$result) {
+    die("Error: " . $conn->error);
+}
+
+// Display data in a table
+echo "<p><b>The Vehicle Schedule</b></p>";
+echo "<table border='1' cellpadding='10'>";
+echo "<tr> 
+        <th>Driver_ID</th> 
+        <th>Driver_Name</th> 
+        <th>Driver_phone_no</th>
+        <th>Vehicle_type</th> 
+        <th>Plate_no</th> 
+        <th>Place_of_start</th>
+        <th>Place_of_arrive</th> 
+        <th>Service_time</th> 
+        <th>Date</th> 
+        <th>Outgoing_time</th> 
+        <th>Enterance_time</th>
+        <th>For</th>
+      </tr>";
+
+// Loop through results of the database query and display them in the table
+while ($row = $result->fetch_assoc()) {
+    echo "<tr>";
+    echo '<td>' . htmlspecialchars($row['Driver_ID']) . '</td>';
+    echo '<td>' . htmlspecialchars($row['Driver_Name']) . '</td>';
+    echo '<td>' . htmlspecialchars($row['Driver_phone_no']) . '</td>';
+    echo '<td>' . htmlspecialchars($row['Vehicle_type']) . '</td>';
+    echo '<td>' . htmlspecialchars($row['Plate_no']) . '</td>';
+    echo '<td>' . htmlspecialchars($row['Place_of_start']) . '</td>';
+    echo '<td>' . htmlspecialchars($row['Place_of_arrive']) . '</td>';
+    echo '<td>' . htmlspecialchars($row['Service_time']) . '</td>';
+    echo '<td>' . htmlspecialchars($row['Date']) . '</td>';
+    echo '<td>' . htmlspecialchars($row['Outgoing_time']) . '</td>';
+    echo '<td>' . htmlspecialchars($row['Enterance_time']) . '</td>';
+    echo '<td>' . htmlspecialchars($row['For']) . '</td>';
+    echo "</tr>";
+}
+
+// Close the table
+echo "</table>";
+
+// Close the database connection
+$conn->close();
+?>
+
+          
+            </div>
+</form>
+
+</center> 
+  <div id="templatemo_footer_panel">
+        <div id="templatemo_footer_section">
+            <p>&copy; All Rights Reserved and Protected | <a href="#">AMU</a> | <a href="http://www.AMU.edu.et" target="_blank">Fleet Management Office</a></p>
+        </div>
+    </div>
+</body>
+<!--  Designed by w w w . t e m p l a t e m o . c o m  --> 
+</html>

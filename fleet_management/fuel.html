@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>AMU</title>
+<meta name="keywords" content="free css website layout, insect, blog template, XHTML, CSS" />
+<meta name="description" content="Insect Blog Template - Free CSS website layout, W3C compliant XHTML CSS" />
+<link href="templatemo_style12.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="templatemo_top_panel">
+    <img src="wou arm.jpg.png" alt="AMU Logo" style="width: 180px; height: 120px; float: right;" />
+    <img src="wou arm.jpg.png" alt="AMU Logo" style="width: 180px; height: 120px; float: left;" />
+        <div id="site_title">
+       AMU FLEET MANAGEMENT SYSTEM
+        <div id="templatemo_menu">          
+                 <ul>              
+                 <li><a href="mnager.html">Home</a></li> 
+                 <li><a href="vehicle-register.html">Vehicle Register</a>
+				 <ul>
+				 <li><a href="view1.php">Update vehicle record</a></li>
+				 </ul>
+				 </li>
+                 <li><a href="fuel.html">Fuel</a></li> 
+                 <li><a href="searchvinfo.html"  class="current">search vehicles</a>
+                  <ul>
+                 <li><a href="mviewschedule.php">view schedule</a>
+				 <ul>
+                 <li><a href="exitrequest1.php">View exit request</a></li>
+                 <li><a href="mrequest-view.php">View maintenance request</a></li>
+				 <li><a href="mmessage.php">View message</a></li>
+				 </ul>
+				 </li>
+				 <li><a href="notify.php">Notify exit permission</a></li>
+				 <li><a href="changepssmanager.html">Changepassword</a></li>
+                  </ul>
+                 </li> 
+                 <li><a href="upload.html"  class="current">Report</a></li>
+				 <li><a href="index.html"  class="current">Logout</a></li>
+                 </ul> 		
+        </div>
+    
+		</div> <!-- end of menu -->
+    </div> <!-- end of top section -->
+</div> <!-- end of top panel -->    
+
+<div id="templatemo_content_panel">
+	<div id="templatemo_content_section">   
+                 
+    	<div id="templatemo_content_left">
+        
+        	<div id="login_section">
+            	<div id="login_section_top"></div>
+                <div id="login_section_title">Vehicle Manager Page</div>
+                <div id="login_section_middle">
+                	
+                            
+                    </div>
+                <div id="login_section_bottom"></div>
+            </div>
+            
+        </div> <!-- end of content left -->
+        
+        <div id="templatemo_content_right">
+        
+        	<div class="right_column_section">
+            	
+                <div class="right_column_section_title">
+	                Fuel Calculation Page
+                </div>
+                <div class="right_column_section_body">            	
+                    <div class="image_box">
+                        
+                    </div>
+                    <div class="post_body">
+                
+
+<b><div align="center"id="clockbox" style="font:20pt Arial; color:#CCCCCC"></div></b></td>
+</td>
+<b><div align="center"id="clockbox" style="font:20pt Arial; color:#CCCCCC"></div></b></td>
+</td>
+<td bgcolor="#999FFF" width="300"><h1> </h1>
+<form name="" method="post" action="fuel.php">
+<p><font face = "time news roman" size="5px" color="#FFFFFF"></p>
+<table width="380px">
+<tr>
+ <td valign="top">
+  <font face = "time news roman" size="4px" color="#FFFFFF""><label for="Date">Date </label>
+ </td>
+ <td valign="top">
+  <input  type="Date" name="Date" maxlength="50" size="30">
+ </td>
+</tr>
+
+<tr>
+ <td valign="top">
+  <font face = "time news roman" size="4px" color="#FFFFFF""><label for="Car_id">Car_id</label>
+ </td>
+ <td valign="top">
+  <input  type="text" name="Car_id" maxlength="80" size="30" required>
+ </td>
+</tr>
+<tr>
+ <td valign="top">
+  <font face = "time news roman" size="4px" color="#FFFFFF""><label for="Traveled km">Traveled km </label>
+ </td>
+ <td valign="top">
+  <input  type="text" name="Traveledkm" maxlength="80" size="30" onfocus="if(this.value=='distance'){this.value='';}"required>
+ </td>
+</tr>
+
+<tr>
+ <td valign="top">
+  <font face = "time news roman" size="4px" color="#FFFFFF""><label for="Price">Price </label>
+ </td>
+ <td valign="top">
+  <input  type="text" name="Price" maxlength="80" size="30" onfocus="if(this.value=='price'){this.value='';}" required>
+ </td>
+</tr>
+
+<tr>
+ <td valign="top">
+  <font face = "time news roman" size="4px" color="#FFFFFF""><label for="Given_fuel by L">Given_fuel by L</label>
+ </td>
+ <td valign="top">
+  <input  type="text" name="Given_fuel by L" maxlength="80" size="30" onfocus="if(this.value=='quantity'){this.value='';} required>
+ </td>
+</tr>
+
+  <tr>
+ <td colspan="2" style="text-align:center">
+  <font face = "time news roman" size="4px" color="#FFFFFF""><input type="submit" value="Submit" name="Submit"> 
+  <font face = "time news roman" size="4px" color="#FFFFFF""><input type="reset" value="Clear"> 
+ </td>
+</tr>
+</table>
+</form>
+<?php
+include ("config.php");
+if(isset($_POST["Submit"]))
+{
+$km=$_POST["Traveledkm"];
+
+}
+
+
+
+?>
+  </html> 
+  <div class="post_info">
+                           
+                        </div>
+                    </div>
+	                <div class="cleaner">&nbsp;</div>
+				</div>           	
+			</div>
+            
+	             
+            
+            <div class="cleaner_with_height">&nbsp;</div>          	
+                	
+			</div>
+            
+            <div class="cleaner_with_height">&nbsp;</div>
+            
+            <div class="right_column_section">
+            	
+                
+            
+        </div> <!-- end of content right -->
+    
+    </div> <!-- end of content section -->
+
+<!-- end of bottom panel -->
+
+<div id="templatemo_footer_panel">
+
+	<div id="templatemo_footer_section">
+    	<P>Copyright © 2017 <a href="#">AMU</a> |AMU vehicle management office</P> 
+    </div> <!-- end of footer section -->
+</div> <!-- end of footer panel -->
+<div align=center> </div></body>
+<!--  Designed by w w w . t e m p l a t e m o . c o m  --> 
+</html>

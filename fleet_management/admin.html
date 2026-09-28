@@ -1,0 +1,121 @@
+﻿<?php
+session_start();
+
+// Check if the user is logged in
+if (!isset($_SESSION['username'])) {
+    // Redirect to the login page if the user is not logged in
+    header("Location: index.html");
+    exit();
+}
+
+?>
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+      <meta http-equiv="Pragma" content="no-cache">
+      <meta http-equiv="Expires" content="0">
+  
+      <!-- Add client-side session check -->
+      <script>
+          // Check session status on page load
+          fetch('check_login.php') // Create this file (see below)
+              .then(response => response.text())
+              .then(data => {
+                  if (data === 'false') {
+                      window.location.href = 'index.html';
+                  }
+              });
+      </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AMU University</title>
+    <meta name="keywords" content="AMU University, Fleet Management, Admin, Report, Account" />
+    <meta name="description" content="AMU University Fleet Management System - Admin Panel" />
+    <link href="templatemo_style12.css" rel="stylesheet" type="text/css" />
+    <style>
+        .post_body {
+            background-color: rgba(73, 192, 73, 0.6);
+            border-radius: 50px;
+            line-height: 25px;
+            font-size: 20px;
+            color: white; /* Added for better text readability */
+            padding: 15px; /* Added for better content spacing */
+        }
+    </style>
+</head>
+<body>
+    <div id="templatemo_top_panel">
+        <img src="wou arm.jpg.png" style="width:"180px" height="120px" align="left"">
+        <img src="wou arm.jpg.png" style="width:"180px" height="120px" align="right"">
+        <div id="templatemo_top_section">
+            <div id="site_title">
+                AMU FLEET MANAGEMENT SYSTEM
+                <div id="templatemo_menu">
+                    <ul>
+                        <li><a href="Admin.php" class="current">Home</a></li>
+                        <li><a href="#">Account</a>
+                            <ul>
+                                <li><a href="createaccount.php">Create account</a></li>
+                                <li><a href="view.php">Update account</a></li>
+                                <li><a href="view2.php">Delete account</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="aviewschedule.php">View Schedule</a></li>
+                        <li><a href="upload1.php" class="current">Report</a></li>
+                        <li><a href="changepssadmin.php">Changepassword</a></li>
+                        <li><a href="logout.php" class="current">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="templatemo_content_panel">
+        <div id="templatemo_content_section">
+            <div id="templatemo_content_left">
+                <div id="login_section">
+                    <div id="login_section_top"></div>
+                    <div id="login_section_title">ADMIN</div>
+                    <div id="login_section_middle"><img src="Admin.png" alt=""></div>
+                </div>
+                <div id="left_column_section">
+                    <div id="left_column_section_top"></div>
+                    <div id="left_column_section_middle">
+                        <div class="image_box"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="templatemo_content_right">
+                <div class="right_column_section">
+                    <div class="right_column_section_title"></div>
+                    <div class="right_column_section_body">
+                        <div class="image_box"></div>
+                        <div class="post_body">
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Arba Minch University, located in Arba Minch, Ethiopia, is a prominent institution of higher education. Established in 2004, it offers a range of undergraduate and postgraduate programs across various fields, including engineering, natural sciences, social sciences, business, and health sciences. .</p>
+                            <div class="post_info">
+                                <span class=""></span>
+                            </div>
+                        </div>
+                        <div class="cleaner">&nbsp;</div>
+                    </div>
+                </div>
+                <div class="cleaner_with_height">&nbsp;</div>
+                <div class="right_column_section"></div>
+                <div class="cleaner_with_height">&nbsp;</div>
+                <div class="right_column_section"></div>
+                <div class="cleaner_with_height">&nbsp;</div>
+                <div class="right_column_section"></div>
+                <div class="cleaner_with_height">&nbsp;</div>
+                <div class="right_column_section"></div>
+                <div class="cleaner_with_height">&nbsp;</div>
+            </div>
+        </div>
+    </div>
+    <div id="templatemo_footer_panel">
+        <div id="templatemo_footer_section">
+            Copyright © 2025 <a href="#">AMU University</a> | <a href="http://wou_arm vehicle management office" target="_parent">WU vehicle management office</a>
+        </div>
+    </div>
+</body>
+</html>

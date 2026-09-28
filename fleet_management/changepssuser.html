@@ -1,0 +1,534 @@
+<?php
+session_start();
+
+// Check if the user is logged in
+if (!isset($_SESSION['username'])) {
+    header("Location: index.html");
+    exit();
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Password | AMU Fleet System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style type="text/css">
+        :root {
+            --amu-primary: #2e7d32;
+            --amu-primary-dark: #1b5e20;
+            /* --amu-dark: #121212; /* Original black, replaced by navy */
+            --amu-light: #f5f5f5;
+            --amu-text: #e0e0e0;
+            --amu-text-secondary: #b0b0b0;
+            --amu-success: #28a745;
+            --amu-danger: #dc3545;
+            --amu-danger-dark: #c82333; /* Added for consistency with button hover */
+
+            /* Navy Blue Theme Variables */
+            --amu-navy-bg-header-footer: rgba(26, 35, 126, 0.85);
+            --amu-navy-bg-panel: rgba(26, 35, 126, 0.75);
+            --amu-navy-bg-input: rgba(0, 0, 0, 0.4); /* Darker input for contrast on navy */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('Amu gate.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+            color: var(--amu-text);
+            min-height: 100vh;
+            line-height: 1.6;
+            display: flex; /* Added for footer */
+            flex-direction: column; /* Added for footer */
+        }
+
+        #templatemo_top_panel {
+            background-color: var(--amu-navy-bg-header-footer); /* MODIFIED */
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3); /* Added subtle shadow */
+        }
+
+        #templatemo_top_panel img {
+            height: 50px;
+            width: auto;
+            max-width: 120px; /* Ensure logo doesn't get too big */
+            object-fit: contain;
+        }
+
+        #site_title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #fff;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            flex-grow: 1; /* Allow title to take space */
+            margin: 0 20px; /* Add some margin around title */
+        }
+
+        #templatemo_menu ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            flex-wrap: nowrap; /* Prevent wrapping on small screens if possible */
+        }
+
+        #templatemo_menu li {
+            position: relative;
+            margin: 0 8px;
+        }
+
+        #templatemo_menu a {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 15px; /* Original padding */
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem; /* Original font size */
+            white-space: nowrap; /* Prevent link text from wrapping */
+        }
+
+        #templatemo_menu a:hover,
+        #templatemo_menu .current {
+            background-color: var(--amu-primary);
+        }
+
+        #templatemo_content_panel {
+            flex: 1; /* Takes remaining vertical space */
+            display: flex; /* To center its child */
+            padding: 30px 5%; /* Add padding around content area */
+            backdrop-filter: blur(2px); /* Keep if desired */
+        }
+
+        #templatemo_content_section {
+            /* display: flex; Already flex from original */
+            width: 100%;
+            max-width: 700px; /* Adjusted for a single form column */
+            margin: 0 auto; /* Center the section */
+        }
+
+        /* #templatemo_content_left and its child styles are removed or commented out */
+        /*
+        #templatemo_content_left {
+            width: 250px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #login_section {
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #login_section_title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--amu-primary);
+        }
+
+        #login_section img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto;
+            display: block;
+            border: 3px solid var(--amu-primary);
+        }
+        */
+
+        #templatemo_content_right { /* This will now be the main container for the form */
+            flex: 1; /* Takes up the full width of its parent #templatemo_content_section */
+            /* padding: 20px 40px; /* Original padding, now applied to .right_column_section */
+        }
+
+        .right_column_section { /* This is the styled box for the form */
+            background-color: var(--amu-navy-bg-panel); /* MODIFIED */
+            border-radius: 10px;
+            padding: 30px 40px; /* Increased padding for better spacing */
+            /* margin-bottom: 20px; /* Kept from original if there were multiple sections */
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3); /* Added subtle shadow */
+        }
+
+        .right_column_section_title {
+            font-size: 1.8rem; /* Slightly larger title */
+            font-weight: 600;
+            margin-bottom: 25px; /* Increased margin */
+            color: var(--amu-text); /* MODIFIED: White/light gray for better contrast on navy */
+            text-align: center;
+            position: relative; /* For underline */
+            padding-bottom: 10px; /* Space for underline */
+        }
+        /* Optional: Underline for title */
+        .right_column_section_title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 2px;
+            background-color: var(--amu-primary);
+        }
+
+
+        .password-form {
+            max-width: 500px; /* Original max-width */
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--amu-text);
+            font-size: 1rem;
+        }
+
+        .form-group input { /* Selects all input types, more specific below if needed */
+            width: 100%;
+            padding: 12px 15px; /* Increased padding */
+            border-radius: 6px; /* Smoother radius */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background-color: var(--amu-navy-bg-input); /* MODIFIED */
+            color: var(--amu-text);
+            font-size: 1rem;
+            box-sizing: border-box; /* Better box model handling */
+        }
+        .form-group input:focus { /* Focus style */
+            border-color: var(--amu-primary);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.3);
+        }
+
+
+        .form-note {
+            color: var(--amu-text-secondary);
+            font-size: 0.85rem; /* Slightly smaller */
+            margin-top: 5px;
+            display: block;
+        }
+
+        .form-actions {
+            text-align: center;
+            margin-top: 30px;
+            display: flex; /* For button alignment */
+            gap: 15px; /* Space between buttons */
+            justify-content: center; /* Center buttons */
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: 6px; /* Consistent radius */
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        .btn:hover { /* Subtle hover effect */
+            transform: translateY(-2px);
+        }
+
+        .btn-submit {
+            background-color: var(--amu-primary);
+            color: white;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--amu-primary-dark);
+        }
+
+        .btn-reset {
+            background-color: var(--amu-danger);
+            color: white;
+            /* margin-left: 15px; /* Original, now handled by gap in .form-actions */
+        }
+
+        .btn-reset:hover {
+            background-color: var(--amu-danger-dark); /* Using var */
+        }
+
+        .form-instruction {
+            color: var(--amu-text-secondary); /* MODIFIED: More subtle color for instruction */
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1rem; /* Slightly smaller */
+            font-style: italic;
+        }
+
+        #templatemo_footer_panel {
+            background-color: var(--amu-navy-bg-header-footer); /* MODIFIED */
+            padding: 20px 5%;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: auto; /* Stick footer to bottom */
+        }
+        #templatemo_footer_section { /* Added for footer text styling */
+            color: rgba(255,255,255,0.7);
+            font-size: 0.85rem;
+        }
+        #templatemo_footer_section a { /* Footer link styling */
+            color: #4caf50; /* AMU Green for links */
+            text-decoration: none;
+        }
+        #templatemo_footer_section a:hover {
+            color: var(--amu-primary-dark);
+            text-decoration: underline;
+        }
+
+        /* Responsive Adjustments - Kept similar to your original structure */
+        @media (max-width: 768px) {
+            #templatemo_top_panel {
+                flex-direction: column;
+                height: auto;
+                padding: 15px 5%;
+            }
+            #templatemo_top_panel img:first-of-type { /* Hide one logo if two present */
+                display: none;
+            }
+            #site_title {
+                margin: 10px 0;
+                font-size: 1.2rem;
+            }
+            #templatemo_menu ul {
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+            #templatemo_menu li {
+                margin: 5px 0;
+                width: 100%;
+                text-align: center;
+            }
+            #templatemo_menu a {
+                display: block; /* Full width links */
+            }
+            #templatemo_content_panel {
+                padding: 20px 3%;
+            }
+            .right_column_section { /* Adjust padding for form on small screens */
+                padding: 20px;
+            }
+            .right_column_section_title {
+                font-size: 1.5rem;
+            }
+            .form-actions {
+                flex-direction: column; /* Stack buttons */
+            }
+            .btn { /* Full width buttons when stacked */
+                width: 100%;
+            }
+            .btn-reset {
+                margin-top: 10px; /* Space when stacked */
+            }
+        }
+
+    </style>
+       <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Client-side session check (original)
+            fetch('check_login.php')
+                .then(response => response.text())
+                .then(data => {
+                    if (data === 'false') { // Original check
+                        window.location.href = 'index.html';
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+
+            // Live feedback for New Password field
+            const newPasswordField = document.getElementById('newPassword');
+            const newPasswordFeedbackDiv = document.getElementById('newPasswordFeedback');
+
+            if (newPasswordField && newPasswordFeedbackDiv) {
+                newPasswordField.addEventListener('input', function() {
+                    const password = this.value;
+                    let messages = [];
+                    const minLength = 8;
+
+                    if (password.length === 0) {
+                        // Reset to initial guidance when field is empty
+                        newPasswordFeedbackDiv.innerHTML = 'Password must be at least 8 characters, including letters and numbers.';
+                        newPasswordFeedbackDiv.style.color = 'var(--amu-text-secondary)'; // Assuming this var holds the default note color
+                        return;
+                    }
+
+                    // 1. Minimum length check
+                    if (password.length >= minLength) {
+                        messages.push('<span style="color: var(--amu-success, #28a745);">✓ At least ' + minLength + ' characters</span>');
+                    } else {
+                        messages.push('<span style="color: var(--amu-danger, #dc3545);">✗ At least ' + minLength + ' characters</span>');
+                    }
+
+                    // 2. Contains a letter check
+                    if (/[a-zA-Z]/.test(password)) {
+                        messages.push('<span style="color: var(--amu-success, #28a745);">✓ Contains a letter (a-z, A-Z)</span>');
+                    } else {
+                        messages.push('<span style="color: var(--amu-danger, #dc3545);">✗ Contains a letter (a-z, A-Z)</span>');
+                    }
+
+                    // 3. Contains a number check
+                    if (/[0-9]/.test(password)) {
+                        messages.push('<span style="color: var(--amu-success, #28a745);">✓ Contains a number (0-9)</span>');
+                    } else {
+                        messages.push('<span style="color: var(--amu-danger, #dc3545);">✗ Contains a number (0-9)</span>');
+                    }
+
+                    newPasswordFeedbackDiv.innerHTML = messages.join('<br>');
+                });
+            }
+        });
+
+
+        // ValidateAlpha function (original)
+        function ValidateAlpha(evt) {
+            var keyCode = (evt.which) ? evt.which : evt.keyCode;
+            if ((keyCode < 65 || keyCode > 90) && (keyCode < 97 || keyCode > 122) && keyCode != 32 && keyCode != 8 && keyCode != 9) {
+                alert("Only letters are allowed!");
+                return false;
+            }
+            return true;
+        }
+
+        // checkform function (updated with new password criteria alerts)
+        function checkform(form) {
+            if (form.UserName.value == "") {
+                alert("Please fill UserName");
+                form.UserName.focus();
+                return false;
+            }
+            if (form.Password.value == "") {
+                alert("Please fill Current Password");
+                form.Password.focus();
+                return false;
+            }
+
+            const newPasswordValue = form.newPassword.value;
+            const minPasswordLength = 8;
+
+            if(newPasswordValue == '') {
+                alert("Please enter New Password.");
+                form.newPassword.focus();
+                return false;
+            }
+            // New Password criteria checks with alerts
+            if(newPasswordValue.length < minPasswordLength) {
+                alert("New Password is too short! It must contain at least " + minPasswordLength + " characters.");
+                form.newPassword.focus();
+                return false;
+            }
+            if (!/[a-zA-Z]/.test(newPasswordValue)) { // Check for at least one letter
+                alert("New Password must contain at least one letter (a-z or A-Z).");
+                form.newPassword.focus();
+                return false;
+            }
+            if (!/[0-9]/.test(newPasswordValue)) { // Check for at least one number
+                alert("New Password must contain at least one number (0-9).");
+                form.newPassword.focus();
+                return false;
+            }
+            // End of New Password criteria checks
+
+            if(form.ConfrimPassword.value == '') {
+                alert("Please confirm New Password.");
+                form.ConfrimPassword.focus();
+                return false;
+            }
+            else if(newPasswordValue != form.ConfrimPassword.value) {
+                alert("New Password does not match confirmation.");
+                form.ConfrimPassword.focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <div id="templatemo_top_panel">
+        <img src="wou arm.jpg.png" alt="AMU Logo">
+        <div id="site_title">AMU FLEET MANAGEMENT SYSTEM</div>
+        <div id="templatemo_menu">
+            <ul>
+                <li><a href="user.php">Home</a></li>
+                <li><a href="userviewschedule.php">View Schedule</a></li>
+                <li><a href="changepssuser.php" class="current">Change Password</a></li> <!-- Assuming .php if it's this file -->
+                <li><a href="logout.php">Logout</a></li>
+            </ul>
+        </div>
+        <img src="wou arm.jpg.png" alt="AMU Logo">
+    </div>
+
+    <div id="templatemo_content_panel">
+        <div id="templatemo_content_section">
+            <!-- The <div id="templatemo_content_left"> ... </div> has been REMOVED -->
+            
+            <div id="templatemo_content_right"> <!-- This now contains the form's styled box -->
+                <div class="right_column_section">
+                    <div class="right_column_section_title">
+                        Change Password
+                    </div>
+                    <div class="right_column_section_body">
+                        <p class="form-instruction">Please fill the form correctly before submitting!</p>
+                        <form name="htmlform" method="POST" action="changepassword1.php" onsubmit="return checkform(this)" class="password-form">
+                            <div class="form-group">
+                                <label for="UserName">Username</label>
+                                <!-- Username field is NOT pre-filled or readonly here, as per minimal change request -->
+                                <input type="text" name="UserName" id="UserName" maxlength="50" placeholder="Enter your username" onkeypress="return ValidateAlpha(event)">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="Password">Current Password</label>
+                                <input type="password" name="Password" id="Password" maxlength="50" placeholder="Enter current password" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="newPassword">New Password</label>
+                                <input type="password" name="newPassword" id="newPassword" maxlength="80" placeholder="Enter new password" required>
+                                <span class="form-note">Password must be at least 8 characters long</span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="ConfrimPassword">Confirm New Password</label>
+                                <input type="password" name="ConfrimPassword" id="ConfrimPassword" maxlength="30" placeholder="Confirm new password" required>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-submit">Submit</button>
+                                <button type="reset" class="btn btn-reset">Clear</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="templatemo_footer_panel">
+        <div id="templatemo_footer_section">
+            Copyright © <?php echo date("Y"); ?> <a href="#">AMU University</a> | <a href="http://www.amu.edu.et" target="_blank">Fleet Management Office</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>AMU</title>
+<meta name="keywords" content="free css website layout, insect, blog template, XHTML, CSS" />
+<meta name="description" content="Insect Blog Template - Free CSS website layout, W3C compliant XHTML CSS" />
+<link href="templatemo_style12.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+function checkform (form) {
+  if (form.Driver_ID.value=="") {
+    alert("please fill Driver_ID");
+form.Driver_ID.focus();
+return false;
+  }
+  if (form.Driver_Name.value=="") {
+    alert("please fill Driver_Name");
+    form.Driver_Name.focus();
+    return false;
+  }
+   if (form.Driver_phone_no.value=="") {
+    alert("please fill Driver_phone_no");
+    form.Driver_phone_no.focus();
+    return false;
+   }
+   if (form.Vehicle_type.value=="") {
+    alert("please fill Vehicle_type");
+    form.Vehicle_type.focus();
+    return false;
+   }
+  
+   if (form.Plate_no.value=="") {
+    alert("please fill Plate_no");
+    form.Plate_no.focus();
+    return false;
+   }
+   if (form.Place_of_start.value=="") {
+    alert("please fill Place_of_start");
+    form.Place_of_start.focus();
+    return false;
+   }
+   if (form.Place_of_arrive.value=="") {
+    alert("please fill Place_of_arrive");
+    form.Place_of_arrive.focus();
+    return false;
+   }
+    if (form.Service_time.value=="") {
+    alert("please select service time");
+    form.Service_time.focus();
+    return false;
+   }
+   if (form.Date.value=="") {
+    alert("please fill Date");
+    form.Date.focus();
+    return false;
+   }
+   if (form.Enterance_time.value=="") {
+    alert("please fill Enterance_time");
+    form.Enterance_time.focus();
+    return false;
+   }
+   if (form.Outgoing_time.value=="") {
+    alert("please fill Outgoing_time");
+    form.Outgoing_time.focus();
+    return false;
+   }
+
+}
+</script>
+
+ <script>
+    function ValidateAlpha(evt)
+        {
+  var keyCode = (evt.which) ? evt.which : evt.keyCode
+ if ((keyCode < 65 || keyCode > 90) && (keyCode < 97 || keyCode > 123) && keyCode != 32 &&  keyCode != 8  &&  keyCode != 9)
+                {
+alert(" Only letters are allowed! ")
+            return false;
+            }}
+
+            </script>
+
+
+</head>
+<body>
+<div id="templatemo_top_panel">
+    <img src="wou arm.jpg.png" alt="AMU Logo" style="width: 180px; height: 120px; float: right;" />
+    <img src="wou arm.jpg.png" alt="AMU Logo" style="width: 180px; height: 120px; float: left;" />
+    
+
+    <div id="templatemo_top_section">
+        <div id="site_title">
+       AMU FLEET MANAGEMENT SYSTEM
+           <div id="templatemo_menu">        
+        	 <ul>
+                <li><a href="scheduler.html"  class="current">Home</a></li>
+				<li><a href="newsche.php">schedule</a></li>
+                <li><a href="sviewschedule.php">View schedule</a></li>
+                <li><a href="searchvinfo1.html">Search vehicle</a></li>
+				<li><a href="changepss.html">Change Password</a></li>
+				<li><a href="index.html">Logout</a></li>         
+             </ul> 
+            </div>
+		</div> <!-- end of menu -->
+    </div> <!-- end of top section -->
+</div> <!-- end of top panel -->    
+
+<div id="templatemo_content_panel">
+	<div id="templatemo_content_section">   
+                 
+    	<div id="templatemo_content_left">
+        
+        	<div id="login_section">
+            	<div id="login_section_top"></div>
+                <div id="login_section_title">Vehicle Scheduler </div>
+                <div id="login_section_middle">
+
+                  
+                    
+
+                    </div>
+                <div id="login_section_bottom"></div>
+            </div>
+            
+           	<div id="left_column_section">
+            	<div id="left_column_section_top"></div>
+                <div id="left_column_section_middle">
+                  
+                </div>
+            </div> 
+            
+        </div> <!-- end of content left -->
+        
+        <div id="templatemo_content_right">
+        
+        	<div class="right_column_section">
+            	
+                <div class="right_column_section_title">
+	                Schedule form
+                </div>
+                <div class="right_column_section_body">            	
+                    <div class="image_box">
+                        
+                    </div>
+                    <div class="post_body"> 
+
+<b><div align="center"id="clockbox" style="font:20pt Arial; color:#CCCCCC"></div></b></td>
+</td>
+<b><div align="center"id="clockbox" style="font:20pt Arial; color:#CCCCCC"></div></b></td>
+</td>
+<td bgcolor="#999FFF" width="400"><h1> </h1>
+<form name="" method="post" action="schedulevehicle.php" onsubmit="return checkform(this)">
+<p><font face = "time news roman" size="5px" color="#FFFFFF"></p>
+<table width="450px">
+</tr>
+ <td valign="top">
+  <font face = "time news roman" size="4px" color="#FFFFFF""><label for="Driver_ID">Driver_ID</label>
+ </td>
+ <td valign="top">
+  <input  type="text" name="Driver_ID" maxlength="50" size="30">
+ </td>
+
+<tr>
+ <td valign="top">
+  <font face = "time news roman" size="4px" color="#FFFFFF""><label for="Driver_Name">Driver_Name</label>
+ </td>
+ <td valign="top">
+  <input  type="text" name="Driver_Name" maxlength="80" size="30" onkeypress="return ValidateAlpha(event)">
+ </td>
+</tr>
+<tr>
+ <td valign="top">
+  
+  <font face = "time news roman" size="4px" color="#FFFFFF""><label for="Driver_phone_no">Driver_phone_no</label>
+ </td>
+ <td valign="top">
+  <input  type="text" name="Driver_phone_no" maxlength="30" size="30">
+ </td>
+</tr>
+<tr>
+ <td valign="top"">
+  <font face = "time news roman" size="4px" color="#FFFFFF""><label for="Vehicle_type">Vehicle_type</label>
+ </td>
+ <td valign="top">
+  <input  type="text" name="Vehicle_type" maxlength="50" size="30">
+ </td>
+</tr>
+<tr>
+ <td valign="top">
+ <font face = "time news roman" size="4px" color="#FFFFFF""> <label for="Plate_no">Plate_no</label>
+ </td>
+ <td valign="top">
+   <input  type="text" name="Plate_no" maxlength="30" size="30">
+ </td>
+ 
+</tr>
+<tr>
+ <td valign="top">
+ <font face = "time news roman" size="4px" color="#FFFFFF""> <label for="Place_of_start">Place_of_start</label>
+ </td>
+ <td valign="top">
+ <input  type="text" name="Place_of_start" maxlength="30" size="30">
+ </td>
+ 
+</tr>
+
+<tr>
+ <td valign="top">
+ <font face = "time news roman" size="4px" color="#FFFFFF""> <label for="Place_of_arrive">Place_of_arrive</label>
+ </td>
+ <td valign="top">
+ <input  type="text" name="Place_of_arrive" maxlength="30" size="30">
+ </td> 
+</tr>
+
+<td valign="top">
+<font face="Times New Roman" size="4px" color="#FFFFFF"><label for="Service_time">Service_time</label>
+ </td>
+ <td valign="top">
+  <select name="Service_time" >
+   <option value="" >--Select service time--</option>
+  <option value="Morning_time">Morning_time</option>
+  <option value="Lunch_time">Lunch_time</option>
+  <option value="Afternoon">Afternoon</option>
+
+ </select>
+ </td>
+</tr>
+<!--<tr>
+ <td valign="top">
+ <font face = "time news roman" size="4px" color="#FFFFFF""> <label for="Date">Date</label>
+ </td>
+ <td valign="top">
+ <input  type="Date" name="Date" maxlength="30" size="30">
+ </td>
+ 
+</tr>-->
+<tr>
+ <td valign="top">
+ <font face = "time news roman" size="4px" color="#FFFFFF""> <label for="Enterance_time">Enterance_time</label>
+ </td>
+ <td valign="top">
+ <input  type="text" name="Enterance_time" maxlength="30" size="30">
+ </td>
+ 
+</tr>
+<tr>
+ <td valign="top">
+ <font face = "time news roman" size="4px" color="#FFFFFF""> <label for="Outgoing_time">Outgoing_time</label>
+ </td>
+ <td valign="top">
+ <input  type="text" name="Outgoing_time" maxlength="30" size="30">
+ </td>
+ 
+</tr>
+<tr>
+ <td colspan="2" style="text-align:center">
+  <font face = "time news roman" size="4px" color="#FFFFFF""><input type="submit" name="submit" value="Submit">
+  <font face="Times New Roman" size="4px" color="#FFFFFF"><input type="reset" name="reset" value="Clear" > 
+ </td>
+</tr>
+</table>
+</form>
+</html>
+<div class="post_info">
+                           
+                        </div>
+                    </div>
+	                <div class="cleaner">&nbsp;</div>
+				</div>           	
+			</div>
+            
+	             
+            
+            <div class="cleaner_with_height">&nbsp;</div>          	
+                	
+			</div>
+            
+            <div class="cleaner_with_height">&nbsp;</div>
+            
+            <div class="right_column_section">
+            	
+                
+            
+        </div> <!-- end of content right -->
+    
+    </div> <!-- end of content section -->
+
+<!-- end of bottom panel -->
+
+<div id="templatemo_footer_panel">
+   
+	<div id="templatemo_footer_section">
+    	<P>Copyright © 2025 <a href="#">AMU</a> | <a href="http://AMu vehicle management office" target="_parent">wu vehicle management office</P> 
+    </div> <!-- end of footer section -->
+</div> <!-- end of footer panel -->
+<div align=center> </div></body>
+<!--  Designed by w w w . t e m p l a t e m o . c o m  --> 
+</html>

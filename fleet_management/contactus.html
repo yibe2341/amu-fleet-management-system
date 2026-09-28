@@ -1,0 +1,799 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AMU Fleet Management System</title>
+    <meta name="keywords" content="fleet management, AMU, vehicle tracking, maintenance, gallery, contact" />
+    <meta name="description" content="AMU Fleet Management System - Efficient vehicle tracking, maintenance, gallery, and contact information." />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style type="text/css">
+        /* ===== Global Styles ===== */
+        :root {
+            --amu-primary: #2e7d32;
+            --amu-primary-dark: #1b5e20;
+            --amu-navy-base: #1A237E;
+            --amu-navy-header-footer: rgba(26, 35, 126, 0.9);
+            --amu-navy-panel: rgba(26, 35, 126, 0.85);
+            --amu-navy-input: rgba(255, 255, 255, 0.1);
+            --amu-navy-input-border: rgba(255, 255, 255, 0.3);
+            --amu-light: #f5f5f5;
+            --amu-text: #e0e0e0;
+            --amu-text-secondary: #b0b0b0;
+            --amu-button-submit: #00897B;
+            --amu-button-submit-hover: #00695C;
+            --amu-button-reset: #FF6F00;
+            --amu-button-reset-hover: #E65100;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* ===== Animated Background Image Keyframes ===== */
+        @keyframes slowPanZoom {
+            0% {
+                background-position: 50% 50%; /* Start centered */
+                background-size: 100% 100%;   /* Normal size */
+            }
+            50% {
+                background-position: 55% 45%; /* Slightly pan right and up */
+                background-size: 110% 110%;   /* Slightly zoom in */
+            }
+            100% {
+                background-position: 50% 50%; /* Return to center */
+                background-size: 100% 100%;   /* Return to normal size */
+            }
+        }
+
+        /* Alternative Ken Burns style: pan across */
+        @keyframes kenBurnsPan {
+            0% {
+                background-position: 0% 50%; /* Start left */
+                background-size: 120% 120%;   /* Slightly zoomed to allow panning */
+            }
+            50% {
+                background-position: 100% 50%; /* Pan to right */
+                background-size: 120% 120%;
+            }
+            100% {
+                background-position: 0% 50%; /* Pan back to left */
+                background-size: 120% 120%;
+            }
+        }
+        
+        /* Simpler slow zoom in and out */
+        @keyframes slowZoomEffect {
+            0% { background-size: 100% 100%; }
+            50% { background-size: 105% 105%; } /* Zoom in slightly */
+            100% { background-size: 100% 100%; }
+        }
+
+
+        body {
+            background: url('Amu gate.jpg') no-repeat center center fixed;
+            animation: slowPanZoom 30s ease-in-out infinite alternate;
+            background-size: 100% 100%;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+            color: var(--amu-text);
+            min-height: 100vh;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            /* backdrop-filter: blur(2px); */ /* MODIFIED: Removed this line for a clearer background */
+            overflow-x: hidden;
+        }
+
+
+        /* ===== Header Styles ===== */
+        #templatemo_top_panel {
+            background-color: var(--amu-navy-header-footer);
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        
+        #templatemo_top_panel img {
+            height: 50px;
+            width: auto;
+            max-width: 120px;
+            object-fit: contain;
+        }
+
+        #site_title {
+            font-size: 1.1rem; 
+            font-weight: 700;
+            color: #fff;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.5px; 
+            flex-grow: 1;
+            margin: 0 15px; 
+        }
+
+        #templatemo_menu ul {
+            display: flex;
+            list-style: none;
+        }
+
+        #templatemo_menu li {
+            position: relative;
+            margin: 0 8px;
+        }
+
+        #templatemo_menu a {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        #templatemo_menu a:hover,
+        #templatemo_menu a.current {
+            background-color: var(--amu-primary);
+        }
+
+        #templatemo_menu ul ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.95);
+            border-radius: 0 0 4px 4px;
+            min-width: 180px;
+            padding: 5px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            z-index: 1001;
+        }
+
+        #templatemo_menu li:hover > ul {
+            display: block;
+        }
+        #templatemo_menu ul ul li {
+            width: 100%;
+            margin: 0;
+        }
+        #templatemo_menu ul ul a {
+            padding: 10px 20px;
+            display: block;
+            font-size: 0.85rem;
+        }
+         #templatemo_menu ul ul a:hover {
+            background-color: var(--amu-primary-dark);
+        }
+
+
+        /* ===== Main Content Styles ===== */
+        #templatemo_content_panel_wrapper { 
+            flex: 1;
+            overflow-y: auto; 
+        }
+        
+        .content-section { 
+            padding: 60px 5%; 
+            min-height: 80vh; 
+            width: 100%;
+            display: flex; 
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+        }
+        .content-section:last-child {
+            border-bottom: none;
+        }
+
+
+        .section-content-wrapper { 
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .overlay-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+        
+        .styled-box {
+            background-color: var(--amu-navy-panel);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .box-title {
+            font-size: 1.8rem; 
+            font-weight: 600;
+            margin-bottom: 30px; 
+            text-align: center;
+            color: #fff;
+            position: relative;
+            padding-bottom: 15px; 
+        }
+        .box-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px; 
+            height: 3px;  
+            background-color: var(--amu-primary);
+        }
+
+
+        /* ===== Home Section (Login & Welcome Text) ===== */
+        #home-section .login_section {
+            /* width: 380px; */ /* Replaced by max-width for better responsiveness */
+            max-width: 340px;   /* EDITED: Set desired max-width for the login box */
+            width: 100%;        /* EDITED: Ensure it's responsive within its container */
+        }
+        /* Specific overrides for the login box appearance, making it more compact */
+        #home-section .login_section.styled-box { 
+            padding: 25px 30px; /* EDITED: Tailored padding */
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6); /* EDITED: Tailored shadow */
+        }
+
+        #home-section .login_section .box-title { /* Title within the login box */
+            font-size: 1.6rem;   /* EDITED: Reduced */
+            margin-bottom: 20px; /* EDITED: Reduced */
+            padding-bottom: 12px;/* EDITED: Reduced */
+        }
+        #home-section .login_section .box-title::after {
+            width: 70px;         /* EDITED: Reduced */
+        }
+        #home-section .login_section .form_row { /* Form rows within the login box */
+            margin-bottom: 15px; /* EDITED: Reduced */
+        }
+        #home-section .login_section .form_row label { /* Labels within login box */
+            margin-bottom: 6px;  /* EDITED: Reduced */
+            font-size: 0.85rem;  /* EDITED: Smaller */
+        }
+        #home-section .login_section .form_row input[type="text"],
+        #home-section .login_section .form_row input[type="password"],
+        #home-section .login_section .form_row select { /* Inputs/select in login box */
+            padding: 10px 12px;  /* EDITED: Reduced */
+            font-size: 0.9rem;   /* EDITED: Reduced */
+            border-radius: 5px;  /* EDITED: Slightly smaller */
+        }
+        #home-section .login_section .form-actions { /* Button container in login box */
+            margin-top: 20px;    /* EDITED: Reduced */
+            gap: 10px;           /* EDITED: Reduced gap */
+        }
+        #home-section .login_section .form-actions .button { /* Buttons in login box */
+            padding: 10px 0;     /* EDITED: Reduced */
+            font-size: 0.9rem;   /* EDITED: Reduced */
+            border-radius: 5px;  /* EDITED: Slightly smaller */
+        }
+        /* End of login box specific styles */
+
+        #home-section .post_body {
+            width: 600px;
+            max-width: 100%;
+        }
+        #home-section .post_body p {
+             margin: 0 0 1em 0;
+            color: var(--amu-text-secondary);
+            text-align: justify;
+            line-height: 1.7;
+        }
+         #home-section .post_body p:last-child {
+            margin-bottom: 0;
+        }
+
+
+        /* Form Styles (General - for other forms like feedback) */
+        .form_row { margin-bottom: 20px; }
+        .form_row label { display: block; margin-bottom: 8px; font-weight: 500; color: var(--amu-text); }
+        .form_row input[type="text"], .form_row input[type="password"], .form_row input[type="email"],
+        .form_row input[type="tel"], .form_row input[type="date"], .form_row select, .form_row textarea {
+            width: 100%; padding: 12px 15px; border-radius: 6px; background-color: var(--amu-navy-input);
+            border: 1px solid var(--amu-navy-input-border); color: #fff; font-size: 0.95rem; transition: all 0.3s;
+        }
+        .form_row select option { color: black; background-color: white; }
+        .form_row input[type="text"]:focus, .form_row input[type="password"]:focus, .form_row input[type="email"]:focus,
+        .form_row input[type="tel"]:focus, .form_row input[type="date"]:focus, .form_row select:focus, .form_row textarea:focus {
+            outline: none; border-color: var(--amu-primary); box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.3);
+        }
+        .form_row textarea { min-height: 120px; resize: vertical; }
+        .form-actions { display: flex; justify-content: center; gap: 15px; margin-top: 25px; }
+        .button { /* General style for login form buttons, may be overridden above */
+            color: white; padding: 12px 0; border: none; border-radius: 6px; cursor: pointer;
+            font-weight: 600; width: 48%; transition: all 0.3s; font-size: 0.95rem;
+        }
+        .form-button { /* Contact form buttons */
+            color: white; padding: 12px 30px; border: none; border-radius: 6px; cursor: pointer;
+            font-weight: 600; font-size: 1rem; transition: all 0.3s; display: inline-flex;
+            align-items: center; gap: 8px;
+        }
+        .button:hover, .form-button:hover { transform: translateY(-2px); }
+        input[type="submit"].button, button[type="submit"].form-button { background-color: var(--amu-button-submit); }
+        input[type="submit"].button:hover, button[type="submit"].form-button:hover { background-color: var(--amu-button-submit-hover); }
+        input[type="reset"].button, button[type="reset"].form-button { background-color: var(--amu-button-reset); }
+        input[type="reset"].button:hover, button[type="reset"].form-button:hover { background-color: var(--amu-button-reset-hover); }
+
+
+        /* ===== Gallery Section ===== */
+        #gallery-section .gallery_section {
+            width: 100%;
+            max-width: 1000px; 
+            margin: 0 auto;
+        }
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+            gap: 20px; margin-top: 20px;
+        }
+        .gallery-item {
+            background: rgba(255, 255, 255, 0.05); border-radius: 8px; overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s; border: 1px solid var(--amu-navy-input-border);
+        }
+        .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); }
+        .gallery-img { width: 100%; height: 160px; object-fit: cover; } 
+        .gallery-caption { padding: 12px; text-align: center; font-weight: 500; font-size: 0.9rem; color: var(--amu-text-secondary); }
+
+
+        /* ===== About & Contact Sections (Placeholder) ===== */
+        #about-section .styled-box,
+        #contact-section .styled-box {
+            width: 100%; max-width: 800px; margin: 0 auto;
+        }
+         #about-section p, #contact-section p {
+            color: var(--amu-text-secondary); line-height: 1.7; margin-bottom: 1em;
+        }
+        #contact-section .styled-box a { color: var(--amu-primary); text-decoration: none; }
+        #contact-section .styled-box a:hover { text-decoration: underline; }
+
+
+        /* ===== Feedback/Contact Us Form Section ===== */
+        #feedback-section .contact-form-container {
+            width: 100%; max-width: 800px; margin: 0 auto;
+        }
+        .form-instruction {
+            color: var(--amu-text-secondary); text-align: center; margin-bottom: 25px;
+            font-size: 1rem; font-style: italic;
+        }
+        #feedback-section .form-group {
+            flex: 1; min-width: calc(50% - 10px);
+        }
+        #feedback-section .form-row {
+            display: flex; flex-wrap: wrap; gap: 20px;
+        }
+
+
+        /* ===== Footer Styles ===== */
+        #templatemo_footer_panel {
+            background-color: var(--amu-navy-header-footer); padding: 20px 5%;
+            text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%; 
+        }
+        #templatemo_footer_section { color: rgba(255, 255, 255, 0.7); font-size: 0.85rem; }
+        #templatemo_footer_section a { color: #4caf50; text-decoration: none; transition: color 0.3s; }
+        #templatemo_footer_section a:hover { color: var(--amu-primary); text-decoration: underline; }
+
+        /* ===== Responsive Adjustments ===== */
+        @media (max-width: 992px) {
+            #templatemo_top_panel { padding: 0 3%; height: auto; flex-direction: column; padding-top:15px; padding-bottom:10px;}
+            #site_title { 
+                font-size: 1.0rem; 
+                margin-bottom:10px; 
+            }
+            #templatemo_menu ul { justify-content:center; flex-wrap:wrap; }
+            #templatemo_menu a { padding: 8px 10px; font-size: 0.8rem; }
+            .overlay-container { flex-direction: column; align-items: center; }
+            #home-section .login_section, #home-section .post_body {
+                /* max-width for login_section is already set, this ensures post_body also behaves */
+                width: 100%; 
+                max-width: 600px; /* General max-width for items in column layout */
+                margin-bottom: 30px;
+            }
+             #home-section .login_section { /* Ensure login box specific max-width is maintained */
+                max-width: 340px;
+            }
+            #home-section .post_body { margin-bottom: 0; }
+            .content-section { padding: 40px 3%; min-height: 60vh;}
+            .box-title { font-size: 1.6rem; }
+        }
+
+        @media (max-width: 768px) {
+            #templatemo_top_panel .logo-container:last-child { display: none; }
+            #templatemo_menu li { margin: 5px 3px; }
+            .styled-box, #gallery-section .gallery_section, #feedback-section .contact-form-container {
+                padding: 20px;
+            }
+             /* Ensure login box padding is maintained or adjusted for smaller screens */
+            #home-section .login_section.styled-box {
+                padding: 20px 25px; 
+            }
+            .box-title { font-size: 1.4rem; }
+            #home-section .login_section .box-title { font-size: 1.5rem; } /* Slight adjustment for login title */
+
+             #feedback-section .form-row { flex-direction: column; gap: 0; }
+            #feedback-section .form-group { min-width: 100%; margin-bottom: 20px; }
+            .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+            .gallery-img { height: 130px; }
+        }
+
+        @media (max-width: 480px) {
+            .button, .form-button { width: 100%; margin-right: 0; margin-bottom: 10px; }
+            /* Specific for login buttons if they need different behavior */
+            #home-section .login_section .form-actions .button {
+                width: 100%; /* Already covered by general .button if not overridden */
+            }
+            #home-section .login_section .form-actions {
+                 flex-direction: column; /* Stack buttons in login form */
+            }
+
+            .form-actions .button:last-child, .form-actions .form-button:last-child { margin-bottom: 0; }
+            .form-actions { flex-direction: column; } /* General stacking for other forms */
+            .gallery-grid { grid-template-columns: 1fr; }
+            .gallery-img { height: 180px; }
+            .content-section { padding: 30px 2%; }
+            .box-title { font-size: 1.3rem; }
+             #home-section .login_section .box-title { font-size: 1.4rem; } /* Login title on smallest screens */
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <div id="templatemo_top_panel">
+        <img src="wou arm.jpg.png" alt="AMU Logo" class="logo-container">
+        <div id="site_title">AMU FLEET MANAGEMENT SYSTEM</div>
+        <div id="templatemo_menu">
+            <ul>
+                <li><a href="#home-section" class="current"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#gallery-section"><i class="fas fa-images"></i> Gallery</a></li>
+                <li>
+                    <a href="#about-section"><i class="fas fa-info-circle"></i> About <i class="fas fa-caret-down"></i></a>
+                    <ul>
+                        <li><a href="#about-section">University</a></li>
+                    </ul>
+                </li>
+                <li><a href="#feedback-section"><i class="fas fa-comment-dots"></i> Feedback</a></li>
+                <li><a href="#contact-section"><i class="fas fa-address-book"></i> Contact</a></li>
+                <li><a href="admin_login_page.html"><i class="fas fa-user-shield"></i>Login</a></li>
+            </ul>
+        </div>
+        <img src="wou arm.jpg.png" alt="AMU Logo" class="logo-container" style="justify-content: flex-end;">
+    </div>
+
+    <!-- Main Content Panel: Wrapper for all sections -->
+    <div id="templatemo_content_panel_wrapper">
+
+        <!-- Home Section (Login & Welcome Text) -->
+        <section id="home-section" class="content-section">
+            <div class="section-content-wrapper">
+                <div class="overlay-container">
+                    <div class="login_section styled-box"> <!-- This is the login box -->
+                        <div class="box-title" id="login_section_title">Member Login</div>
+                        <form action="login2.php" method="POST" name="loginForm" onsubmit="return validateLoginForm(this)">
+                            <div class="form_row">
+                                <label for="usertype"><i class="fas fa-users"></i> User Type:</label>
+                                <select name="usertype" id="usertype" required>
+                                    <option value="">-- Select User Type --</option>
+                                    <option value="Driver">Driver</option>
+                                    <option value="Manager">Manager</option>
+                                    <option value="User">User</option>
+                                    <option value="Mechanic">Mechanic</option>
+                                    <option value="Scheduler">Scheduler</option>
+                                    <option value="Police">Police</option>
+                                </select>
+                            </div>
+                            <div class="form_row">
+                                <label for="UserName"><i class="fas fa-user"></i> Username:</label>
+                                <input type="text" name="UserName" id="UserName" onkeypress="return ValidateAlpha(event)" required />
+                            </div>
+                            <div class="form_row">
+                                <label for="Password"><i class="fas fa-lock"></i> Password:</label>
+                                <input type="password" name="Password" id="Password" required />
+                            </div>
+                            <div class="form-actions">
+                                <input type="submit" class="button" value="Login" />
+                                <input type="reset" class="button" value="Clear" />
+                            </div>
+                        </form>
+                    </div>
+            
+                    <div class="post_body styled-box">
+                        <div class="box-title">WELCOME TO AMU</div>
+                        <p>
+                            Arbaminch University is one of the well-known higher educational institutions in Ethiopia providing quality services to its customers. Hopeful to be one of the leading higher learning institutions in Ethiopia, Arbaminch University developed both in physical infrastructures, human resources, and in its service provisions to the community. In Arbaminch University, employers use transportation or get service from the university itself.
+                        </p>
+                         <p>This Fleet Management System aims to streamline vehicle operations, enhance tracking, and ensure timely maintenance for optimal efficiency and safety of the university's transport resources.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery-section" class="content-section">
+            <div class="section-content-wrapper">
+                <div class="gallery_section styled-box">
+                    <div class="box-title">PHOTO GALLERY</div>
+                    <div class="gallery-grid">
+                        <div class="gallery-item">
+                            <img src="main gate.jpg" alt="Main Entrance" class="gallery-img">
+                            <div class="gallery-caption">Main Entrance</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="wou arm.jpg.png" alt="AMU" class="gallery-img">
+                            <div class="gallery-caption">AMU Campus</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="48.jpg" alt="Minibus" class="gallery-img">
+                            <div class="gallery-caption">University Minibus</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="45.jpg" alt="Toyota" class="gallery-img">
+                            <div class="gallery-caption">Service Vehicle (Toyota)</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="43.jpg" alt="Coster" class="gallery-img">
+                            <div class="gallery-caption">Coster Bus</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="sunlong.jpg" alt="Sunlong" class="gallery-img">
+                            <div class="gallery-caption">Sunlong Bus</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="41.jpg" alt="Driver" class="gallery-img">
+                            <div class="gallery-caption">Professional Driver</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="50.jpg" alt="Chassis Number" class="gallery-img">
+                            <div class="gallery-caption">Vehicle Identification</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="47.jpg" alt="Mechanic" class="gallery-img">
+                            <div class="gallery-caption">Vehicle Maintenance</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About University Section -->
+        <section id="about-section" class="content-section">
+             <div class="section-content-wrapper">
+                <div class="styled-box">
+                    <div class="box-title">About Arba Minch University</div>
+                    <p>Arba Minch University (AMU) is a public university located in Arba Minch town, Southern Nations, Nationalities, and Peoples' Region, Ethiopia. Established with the vision to be a leading center of academic excellence, AMU is committed to producing competent graduates, conducting problem-solving research, and providing demand-driven community services.</p>
+                    <p>The university has multiple campuses and offers a wide range of undergraduate and postgraduate programs across various disciplines, including engineering, natural sciences, agriculture, health sciences, business, and social sciences. AMU plays a vital role in the socio-economic development of the region and the country at large.</p>
+                    <p>This Fleet Management System is an initiative to enhance the operational efficiency of the university's transportation services, ensuring reliability and accountability.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feedback (Contact Us) Section -->
+        <section id="feedback-section" class="content-section">
+             <div class="section-content-wrapper">
+                <div class="contact-form-container styled-box">
+                    <h1 class="box-title"><i class="fas fa-bullhorn"></i> Share Your Feedback</h1>
+                    <p class="form-instruction">We value your input. Please fill out the form below to send us your comments or suggestions.</p>
+                    
+                    <form name="feedbackForm" method="post" action="contact1.php" onsubmit="return validateFeedbackForm(this)">
+                        <div class="form_row">
+                            <div class="form-group">
+                                <label for="first_name" class="form_row label"><i class="fas fa-user-edit"></i> First Name:</label>
+                                <input type="text" name="first_name" id="first_name" class="form_row input" maxlength="50" onkeypress="return ValidateAlpha(event)" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="last_name" class="form_row label"><i class="fas fa-user-edit"></i> Last Name:</label>
+                                <input type="text" name="last_name" id="last_name" class="form_row input" maxlength="50" onkeypress="return ValidateAlpha(event)" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form_row">
+                            <div class="form-group">
+                                <label for="email" class="form_row label"><i class="fas fa-envelope"></i> Email Address:</label>
+                                <input type="email" name="email" id="email" class="form_row input" maxlength="80" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="telephone" class="form_row label"><i class="fas fa-phone"></i> Telephone:</label>
+                                <input type="tel" name="telephone" id="telephone" class="form_row input" maxlength="30" onkeypress="return isNumberKey(event)" required placeholder="e.g., 0912345678">
+                            </div>
+                        </div>
+                        
+                        <div class="form_row">
+                            <div class="form-group" style="width:100%;">
+                                <label for="date" class="form_row label"><i class="fas fa-calendar-alt"></i> Date:</label>
+                                <input type="date" name="date" id="date" class="form_row input" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form_row">
+                            <div class="form-group" style="width:100%;">
+                                <label for="comments" class="form_row label"><i class="fas fa-comments"></i> Comments/Feedback:</label>
+                                <textarea name="comments" id="comments" class="form_row input" maxlength="1500" required placeholder="Please write your feedback here..."></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="form-button"><i class="fas fa-paper-plane"></i> Submit Feedback</button>
+                            <button type="reset" class="form-button"><i class="fas fa-times-circle"></i> Clear Form</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact-section" class="content-section">
+            <div class="section-content-wrapper">
+                 <div class="styled-box">
+                    <div class="box-title"><i class="fas fa-map-marker-alt"></i> Contact Information</div>
+                    <p><strong>Arba Minch University - Fleet Management Office</strong></p>
+                    <p><i class="fas fa-map-pin"></i> Address: Main Campus, Arba Minch, SNNPR, Ethiopia</p>
+                    <p><i class="fas fa-phone-alt"></i> Phone: +251-092-3371619 (General Inquiry)</p>
+                    <p><i class="fas fa-headset"></i> Transport Office: +251-092-3371619</p>
+                    <p><i class="fas fa-envelope-open-text"></i> Email: <a href="mailto:fleetoffice@amu.edu.et">fleetoffice@amu.edu.et</a></p>
+                    <p><i class="fas fa-globe"></i> Website: <a href="http://www.amu.edu.et" target="_blank">www.amu.edu.et</a></p>
+                    <br>
+                    <p>For specific inquiries regarding vehicle scheduling, maintenance, or other fleet-related matters, please use the appropriate contact details or visit our office during working hours.</p>
+                </div>
+            </div>
+        </section>
+
+    </div> <!-- End of #templatemo_content_panel_wrapper -->
+
+    <!-- Footer Section -->
+    <div id="templatemo_footer_panel">
+        <div id="templatemo_footer_section">
+            <p>© <?php echo date("Y"); ?> All Rights Reserved and Protected | <a href="http://www.amu.edu.et" target="_blank">AMU</a> | Fleet Management Office</p>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // All your JavaScript remains the same
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuLinks = document.querySelectorAll('#templatemo_menu a[href^="#"]');
+            const sections = document.querySelectorAll('.content-section');
+            const headerHeight = document.getElementById('templatemo_top_panel').offsetHeight;
+
+            function smoothScrollToSection(event) {
+                event.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+
+                if (targetSection) {
+                    const targetPosition = targetSection.offsetTop - headerHeight;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+            
+            menuLinks.forEach(link => {
+                link.addEventListener('click', smoothScrollToSection);
+            });
+            const dropdownLinks = document.querySelectorAll('#templatemo_menu ul ul a[href^="#"]');
+             dropdownLinks.forEach(link => {
+                link.addEventListener('click', smoothScrollToSection);
+            });
+
+
+            function updateActiveOnScroll() {
+                let currentSectionId = '';
+                let minDistance = Infinity;
+                const viewportCenterY = window.scrollY + (window.innerHeight / 2);
+
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - headerHeight;
+                    const sectionMiddle = sectionTop + (section.offsetHeight / 2);
+                    
+                    const distanceToCenter = Math.abs(sectionMiddle - viewportCenterY);
+
+                    if (distanceToCenter < minDistance) {
+                         minDistance = distanceToCenter;
+                         currentSectionId = '#' + section.getAttribute('id');
+                    }
+
+                    const sectionBottom = sectionTop + section.offsetHeight;
+                    const viewportTop = window.scrollY;
+                    const viewportBottom = viewportTop + window.innerHeight;
+                    const visiblePartOfSection = Math.max(0, Math.min(sectionBottom, viewportBottom) - Math.max(sectionTop, viewportTop));
+                    
+                    if (visiblePartOfSection > 0 && currentSectionId === '') { 
+                        currentSectionId = '#' + section.getAttribute('id');
+                    }
+                });
+                 updateActiveLink(currentSectionId || '#home-section');
+            }
+
+            function updateActiveLink(activeId) {
+                 menuLinks.forEach(link => {
+                    link.classList.remove('current');
+                    if (link.getAttribute('href') === activeId) {
+                        link.classList.add('current');
+                    }
+                });
+                 dropdownLinks.forEach(link => { 
+                    link.classList.remove('current');
+                     if (link.getAttribute('href') === activeId) {
+                        link.classList.add('current');
+                        let parentLi = link.closest('li').parentElement.closest('li');
+                        if(parentLi){
+                            let parentAnchor = parentLi.querySelector('a');
+                            if(parentAnchor) parentAnchor.classList.add('current');
+                        }
+                    }
+                });
+            }
+
+            updateActiveOnScroll(); 
+            window.addEventListener('scroll', debounce(updateActiveOnScroll, 100));
+
+            function debounce(func, wait) {
+                let timeout;
+                return function executedFunction(...args) {
+                    const later = () => {
+                        clearTimeout(timeout);
+                        func(...args);
+                    };
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                };
+            }
+        });
+
+        function validateLoginForm(form) {
+            if (form.usertype.value === "") { alert("Please select user type."); form.usertype.focus(); return false; }
+            if (form.UserName.value.trim() === "") { alert("Please enter your username."); form.UserName.focus(); return false; }
+            if (form.Password.value === "") { alert("Please enter your password."); form.Password.focus(); return false; }
+            return true;
+        }
+
+        function validateFeedbackForm(form) {
+            if (form.first_name.value.trim() === "") { alert("Please enter your first name."); form.first_name.focus(); return false; }
+            if (form.last_name.value.trim() === "") { alert("Please enter your last name."); form.last_name.focus(); return false; }
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (form.email.value.trim() === "" || !emailPattern.test(form.email.value.trim())) { alert("Please enter a valid email address."); form.email.focus(); return false; }
+            if (form.telephone.value.trim() === "") { alert("Please enter your telephone number."); form.telephone.focus(); return false; }
+            if (form.date.value === "") { alert("Please select a date."); form.date.focus(); return false; }
+            if (form.comments.value.trim() === "") { alert("Please enter your comments or feedback."); form.comments.focus(); return false; }
+            return true;
+        }
+
+        function ValidateAlpha(evt) {
+            var keyCode = (evt.which) ? evt.which : evt.keyCode;
+            if (!((keyCode >= 65 && keyCode <= 90) || (keyCode >= 97 && keyCode <= 122) || keyCode == 32 || keyCode == 8 || keyCode == 9 || keyCode == 46 || (keyCode >=37 && keyCode <=40) )) {
+                return false;
+            }
+            return true;
+        }
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 43 && charCode != 8 && charCode != 9 && charCode != 46 && !(charCode >=37 && charCode <=40)) {
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

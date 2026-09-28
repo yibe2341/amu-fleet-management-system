@@ -1,0 +1,218 @@
+<!-- File: admin_login_page.html -->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Admin Secure Login | AMU Fleet Management</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style type="text/css">
+        /* Styles specifically for THIS admin login page */
+        :root {
+            --amu-primary: #2e7d32;
+            --amu-primary-dark: #1b5e20;
+            --amu-navy-panel: rgba(26, 35, 126, 0.92);
+            --amu-navy-input: rgba(255, 255, 255, 0.15);
+            --amu-navy-input-border: rgba(255, 255, 255, 0.4);
+            --amu-text: #e0e0e0;
+            --amu-button-submit: #00897B;
+            --amu-button-submit-hover: #00695C;
+            --amu-light-text: #f5f5f5;
+        }
+
+        @keyframes adminLoginBgPan {
+            0% { background-position: 45% 55%; background-size: 110% 110%; }
+            50% { background-position: 55% 45%; background-size: 115% 115%; }
+            100% { background-position: 45% 55%; background-size: 110% 110%; }
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: url('Amu gate.jpg') no-repeat center center fixed; /* Ensure path is correct */
+            animation: adminLoginBgPan 40s ease-in-out infinite alternate;
+            background-size: 110% 110%;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+            color: var(--amu-text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            /* backdrop-filter: blur(4px); */ /* MODIFIED: Removed this line for a clearer background */
+        }
+
+        .admin-login-container {
+            background-color: var(--amu-navy-panel);
+            padding: 30px 35px; /* EDITED: Reduced padding */
+            border-radius: 10px; /* EDITED: Slightly smaller radius */
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6); /* EDITED: Slightly less shadow */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+            max-width: 340px; /* EDITED: Further reduced from 360px */
+            text-align: center;
+        }
+
+        .admin-login-logo {
+            height: 55px; /* EDITED: Reduced height */
+            margin-bottom: 15px; /* EDITED: Reduced margin */
+        }
+
+        .admin-login-title {
+            font-size: 1.7rem; /* EDITED: Reduced font size */
+            font-weight: 700;
+            margin-bottom: 20px; /* EDITED: Reduced margin */
+            color: var(--amu-light-text);
+            position: relative;
+            padding-bottom: 10px; /* EDITED: Reduced padding */
+        }
+
+        .admin-login-title::after {
+            content: ''; position: absolute; bottom: 0; left: 50%;
+            transform: translateX(-50%); width: 60px; /* EDITED: Slightly smaller */
+            height: 3px; /* EDITED: Slightly thinner */
+            background-color: var(--amu-primary); border-radius: 2px;
+        }
+
+        .form-row { margin-bottom: 18px; /* EDITED: Reduced margin */
+            text-align: left; position: relative;
+        }
+        .form-row .fas {
+            position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
+            color: var(--amu-primary); font-size: 0.95em; /* EDITED: Slightly smaller icon */
+        }
+        .form-row label { /* Visually hidden but good for accessibility */
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+        }
+        .form-row input[type="text"], .form-row input[type="password"] {
+            width: 100%; padding: 12px 15px 12px 40px; /* EDITED: Reduced padding (top/bottom & left for icon) */
+            border-radius: 7px; /* EDITED: Slightly smaller */
+            background-color: var(--amu-navy-input);
+            border: 1px solid var(--amu-navy-input-border); color: var(--amu-light-text);
+            font-size: 0.9rem; /* EDITED: Slightly smaller font */
+            transition: all 0.3s ease;
+        }
+        .form-row input[type="text"]:focus, .form-row input[type="password"]:focus {
+            outline: none; border-color: var(--amu-primary);
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.35);
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+        .login-button {
+            color: white; padding: 12px 0; /* EDITED: Reduced padding */
+            border: none; border-radius: 7px; /* EDITED: Slightly smaller */
+            cursor: pointer; font-weight: 600; width: 100%; transition: all 0.3s ease;
+            font-size: 1rem; /* EDITED: Reduced font size */
+            background-color: var(--amu-button-submit);
+            margin-top: 8px; /* EDITED: Reduced margin (moved from form-row style) */
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .login-button:hover {
+            background-color: var(--amu-button-submit-hover); transform: translateY(-1px);
+            box-shadow: 0 3px 12px rgba(0, 137, 123, 0.35);
+        }
+        .error-message {
+            color: #ffcdd2; background-color: rgba(229, 57, 53, 0.45);
+            border: 1px solid rgba(211, 47, 47, 0.75); padding: 10px; /* EDITED: Reduced padding */
+            border-radius: 5px; /* EDITED: Slightly smaller */
+            margin-bottom: 18px; /* EDITED: Reduced margin */
+            font-size: 0.85rem; /* EDITED: Slightly smaller font */
+            text-align: center;
+            display: none;
+        }
+        .back-to-site-link { margin-top: 20px; /* EDITED: Reduced margin */
+            font-size: 0.8em; /* EDITED: Slightly smaller font */
+        }
+        .back-to-site-link a {
+            color: var(--amu-primary); text-decoration: none; transition: color 0.3s;
+        }
+        .back-to-site-link a:hover { color: var(--amu-primary-dark); text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="admin-login-container">
+        <img src="wou arm.jpg.png" alt="AMU Logo" class="admin-login-logo">
+        <div class="admin-login-title">Administrator Login</div>
+
+        <div id="adminLoginError" class="error-message"></div>
+
+        <form action="login2.php" method="POST" name="adminLoginForm" onsubmit="return validateAdminLoginForm();">
+            <input type="hidden" name="usertype" value="Admin" />
+
+            <div class="form-row">
+                <label for="AdminUserName">Username</label>
+                <i class="fas fa-user"></i>
+                <input type="text" name="UserName" id="AdminUserName" placeholder="Admin Username" required />
+            </div>
+
+            <div class="form-row">
+                <label for="AdminPassword">Password</label>
+                <i class="fas fa-lock"></i>
+                <input type="password" name="Password" id="AdminPassword" placeholder="Password" required />
+            </div>
+
+            <div class="form-row" style="margin-top: 15px; margin-bottom: 0;"> <!-- EDITED: Adjusted margins for submit button container -->
+                <input type="submit" class="login-button" value="Secure Login" />
+            </div>
+        </form>
+
+        <div class="back-to-site-link">
+            <a href="index.html">« Return to Home Page</a>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function validateAdminLoginForm() {
+            const username = document.getElementById('AdminUserName').value.trim();
+            const password = document.getElementById('AdminPassword').value;
+            const errorDiv = document.getElementById('adminLoginError');
+            errorDiv.style.display = 'none'; // Hide previous errors
+
+            if (username === "") {
+                alert("Admin username is required.");
+                document.getElementById('AdminUserName').focus();
+                return false;
+            }
+            if (password === "") {
+                alert("Password is required.");
+                document.getElementById('AdminPassword').focus();
+                return false;
+            }
+            return true;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const errorParam = urlParams.get('error');
+            const errorDiv = document.getElementById('adminLoginError');
+
+            if (errorParam && errorDiv) {
+                let message = "";
+                let showAlert = false;
+
+                if (errorParam === 'invalid') {
+                    message = "Invalid username or password provided.";
+                    showAlert = true;
+                } else if (errorParam === 'empty') {
+                    message = "Both username and password fields must be filled.";
+                } else if (errorParam === 'unauthorized') {
+                    message = "Access denied. Please log in as an administrator.";
+                    showAlert = true;
+                } else if (errorParam === 'dberror' || errorParam === 'stmt_error' || errorParam === 'db_conn' || errorParam === 'db_conn_failed') {
+                     message = "A system error occurred during login. Please try again later.";
+                } else if (errorParam === 'invalid_role') {
+                    message = "User role configuration issue or incorrect role selection.";
+                }
+
+                if (message) {
+                    errorDiv.textContent = message;
+                    errorDiv.style.display = 'block';
+                    if (showAlert) {
+                        alert(message);
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

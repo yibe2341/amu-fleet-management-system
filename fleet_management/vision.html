@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<style>
+.post_body{
+border:none;
+font-size:14px;
+
+border-radius: 18px;
+}
+
+
+</style>
+    <script type="text/javascript">
+function validate (form) {
+if(form.usertype.value==""){
+alert("please slecet usertype");
+form.usertype.focus();
+return false;
+}
+    if(form.UserName.value==""){
+alert("Please fill user name");
+form.UserName.focus();
+return false;
+}
+    if(form.Password.value==""){
+alert("Please fill password");
+form.Password.focus();
+return false;
+}
+
+}
+    </script>
+    <script>
+    function ValidateAlpha(evt)
+        {
+  var keyCode = (evt.which) ? evt.which : evt.keyCode
+ if ((keyCode < 65 || keyCode > 90) && (keyCode < 97 || keyCode > 123) && keyCode != 32 &&  keyCode != 8  &&  keyCode != 9)
+                {
+alert(" Only letters are allowed! ")
+            return false;
+            }}
+
+            </script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>AMU</title>
+<meta name="keywords" content="free css website layout, insect, blog template, XHTML, CSS" />
+<meta name="description" content="Insect Blog Template - Free CSS website layout, W3C compliant XHTML CSS" />
+<link href="templatemo_style.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+<div id="templatemo_top_panel">
+    <img src="wou arm.jpg.png" alt="AMU Logo" style="width: 180px; height: 120px; float: right;" />
+    <img src="wou arm.jpg.png" alt="AMU Logo" style="width: 180px; height: 120px; float: left;" />
+    
+
+    <div id="templatemo_top_section">
+        <div id="site_title">
+      AMU FLEET MANAGEMENT SYSTEM
+        <div id="templatemo_menu">
+        	<ul>
+                <li><a href="index.html"  class="current">Home</a></li>
+                <li><a href="photo.html">Gallery</a></li> 
+                <li><a href="#" class="last">About</a>
+                <ul>
+				
+				<li><a href="aboutuniv.html">University</a>
+				<ul>
+                <li><a href="vision.html">Vision</a></li>
+                <li><a href="mission.html">Mission</a></li>
+				</ul>
+				</li>
+                </ul>
+                </li> 
+                <li><a href="contactus.html">Feedback</a></li>  
+                <li><a href="contact.html">Contact</a></li> 				
+            </ul>
+            </div> 		</div> <!-- end sof menu -->
+    </div> <!-- end of top section -->
+</div> <!-- end of top panel -->    
+<div id="templatemo_content_panel">
+	<div id="templatemo_content_section">   
+                 
+    	<div id="templatemo_content_left">
+        
+        	<div id="login_section">
+            	<div id="login_section_top"></div>
+                <div id="login_section_title">Member Login</div>
+                <div id="login_section_middle">
+                	<form action="login2.php" name="myForm" method="POST" name="login" onsubmit="return validate(this)"><br><br>
+                            <div class="form_row">
+							<label text-align="right"></label>
+							<select name="usertype">
+        <option value="">--select usertype--</option>
+         <option value="Admin">Admin</option>
+  <option value="Driver">Driver</option>
+  <option value="Manager">Manager</option>
+  <option value="User">User</option>
+  <option value="Mechanic">Mechanic</option>
+  <option value="Scheduler">Scheduler</option>
+  <option value="Police">Police</option>
+       </select>
+	                      
+						  </div>
+						  <div class="form_row">
+                            	<label>UserName: </label>
+                            <input  name="UserName" type="UserName" id="UserName" onkeypress="return ValidateAlpha(event)"/>
+                            </div>
+                            <div class="form_row">
+                            	<label>Password: </label>
+                                <input  name="Password" type="Password" id="Password"/>
+                            </div>
+                            <input class="button" type="submit" name="Submit" value="Login" />
+                            <input class="button" type="reset" name="reset" value="Clear" />
+                    </form>
+                    
+                    </div>
+                <div id="login_section_bottom"></div>
+            </div>
+             <div class="cleaner_with_height">&nbsp;</div>
+            
+            <div class="right_column_section">
+            	
+                
+            
+        </div> <!-- end of content right -->
+    
+    </div> <!-- end of content section -->
+
+           	
+        <div id="templatemo_content_right">
+        
+        	
+            <div class="right_column_section">
+  <div class="right_column_section_title">Vision</div>
+          <div class="right_column_section_body">            	
+                   
+                    <div class="post_body">
+                        
+    <ul> 
+ <li>Create a competent, motivated, adaptable, and innovative workforce for the country who can contribute to poverty reduction, social and economic development through facilitating demand-driven, high quality education and training, relevant to all sectors of the economy.</li>
+ <li> Promote the entrepreneurial development plans of the country through incubation centers.</li>
+ <li> Offer research-led diversified programs that are relevant to the country.</li>
+<li>Prepare trainees with the necessary theoretical knowledge, attitude and skills so that they can fit for the purpose.</li>
+<li> Undertake problem solving researches on local, national, and international issues and problems.</li>
+<li> Create national and international value adding links.</li>
+</ul>
+
+           </p>
+                        </div>
+                    </div>
+	                <div class="cleaner">&nbsp;</div>
+				</div>           	
+			</div>
+            
+            <div class="cleaner_with_height">&nbsp;</div>          	
+                	
+			</div>
+            
+            <div class="cleaner_with_height">&nbsp;</div>
+            
+            <div class="right_column_section">
+            	
+                
+            
+        </div> <!-- end of content right -->
+    
+    </div> <!-- end of content section -->
+
+<!-- end of bottom panel -->
+
+<div id="templatemo_footer_panel">
+	<div id="templatemo_footer_section">
+    	<h>&raquo;All Rights Reserved and Protected © <a href="#">AMU</a> | <a href="http://www.AMu.edu.et" target="_parent">Fleet Management Office</a></h>  <a href="http://www.templatemo.com" target="_parent"></a>
+    </div> <!-- end of footer section -->
+</div> <!-- end of footer panel -->
+</body>
+<!--  Designed by . Information Technology . c o m  --> 
+</html>
